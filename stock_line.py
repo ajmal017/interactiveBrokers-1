@@ -17,6 +17,9 @@ class StockLine():
         self.date = None
         self.time = None
         self.last_time = None
+        self.ticker = None
+    def set_ticker(self, ticker):
+        self.ticker = ticker
     def set_last_time(self, last_time):
         self.last_time = last_time
     def set_bid(self, bid):
@@ -50,9 +53,10 @@ class StockLine():
             return
 
         dynamodb = boto3.resource('dynamodb')
-        table = dynamodb.Table('SPY')
+        table = dynamodb.Table('Stocks')
         line = {
                 'uuid': str(uuid.uuid4()),
+                'ticker': str(self.ticker),
                 'date': str(self.date),
                 'time': str(self.time),
                 'last': str(self.last),
