@@ -9,13 +9,8 @@ class StockLine():
         self.bid_size = None
         self.ask_size = None
         self.last_size = None
-        self.high = None
-        self.low = None
         self.volume = None
-        self.close = None
-        self.open = None
-        self.date = None
-        self.time = None
+        self.timestamp = None
         self.last_time = None
         self.ticker = None
     def set_ticker(self, ticker):
@@ -34,31 +29,20 @@ class StockLine():
         self.ask_size = ask_size
     def set_last_size(self, last_size):
         self.last_size = last_size
-    def set_high(self, high):
-        self.high = high
-    def set_low(self, low):
-        self.low = low
     def set_volume(self, volume):
         self.volume = volume
-    def set_close(self, close):
-        self.close = close
-    def set_open(self, open):
-        self.open = open
-    def set_date(self, date):
-        self.date = date
-    def set_time(self, time):
-        self.time = time
+    def set_timestamp(self, timestamp):
+        self.timestamp = timestamp
     def upload(self):
-        if self.last == None or self.last_size == None or self.last_time == None or self.bid == None or self.bid_size == None or self.ask == None or self.ask_size == None:
-            return
+        #if self.last == None or self.last_size == None or self.last_time == None or self.bid == None or self.bid_size == None or self.ask == None or self.ask_size == None:
+        #    return
 
         dynamodb = boto3.resource('dynamodb')
-        table = dynamodb.Table('Stocks')
+        table = dynamodb.Table('StockData')
         line = {
                 'uuid': str(uuid.uuid4()),
                 'ticker': str(self.ticker),
-                'date': str(self.date),
-                'time': str(self.time),
+                'timestamp': str(self.timestamp),
                 'last': str(self.last),
                 'last_size': str(self.last_size),
                 'bid': str(self.bid),

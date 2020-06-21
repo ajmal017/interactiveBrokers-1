@@ -18,8 +18,7 @@ class IBapi(EWrapper, EClient):
 
     def tickSize(self, reqId, tickType, size):
         super().tickSize(reqId, tickType, size)
-        self.lines[reqId].set_date(datetime.date.today())
-        self.lines[reqId].set_time(datetime.datetime.now().time())
+        self.lines[reqId].set_timestamp(datetime.datetime.now().timestamp())
         if tickType == 0:
             print("bid size: " + str(size))
             self.lines[reqId].set_bid_size(size)
@@ -34,8 +33,7 @@ class IBapi(EWrapper, EClient):
 
     def tickPrice(self, reqId, tickType, price, attrib):
         super().tickPrice(reqId, tickType, price, attrib)
-        self.lines[reqId].set_date(datetime.date.today())
-        self.lines[reqId].set_time(datetime.datetime.now().time())
+        self.lines[reqId].set_timestamp(datetime.datetime.now().timestamp())
 
         if tickType == 1:
             print("bid: " + str(price))
@@ -56,8 +54,6 @@ class IBapi(EWrapper, EClient):
         if tickType == 45:
             print("last timestamp: " + value)
             self.lines[reqId].set_last_time(value)
-        #elif tickType == 84:
-        #    print("last exchange: " + value)
 
 
 def run_loop():
