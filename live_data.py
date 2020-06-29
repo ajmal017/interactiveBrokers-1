@@ -44,10 +44,6 @@ class IBapi(EWrapper, EClient):
         elif tickType == 4:
             print("last: " + str(price))
             self.lines[reqId].set_last(price)
-        elif tickType == 8:
-            print("volume: " + str(price))
-            self.lines[reqId].set_volume(price)
-            self.lines[reqId].upload()
 
     def tickString(self, reqId, tickType, value):
         super().tickString(reqId, tickType, value)
